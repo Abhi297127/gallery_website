@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Photo Gallery</h1>
+        <p>A collection of beautiful photography</p>
+    </header>
+
+    <nav class="filter-nav">
+        <h2>Categories</h2>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="nature">Nature</button>
+            <button class="filter-btn" data-filter="architecture">Architecture</button>
+            <button class="filter-btn" data-filter="travel">Travel</button>
+        </div>
+    </nav>
+
+    <main class="gallery-container">
+        <!-- Nature -->
+        <div class="gallery-item" data-category="nature">
+            <div class="image-container">
+                <img src="https://source.unsplash.com/random/600x400?nature,forest" alt="Forest landscape">
+                <div class="overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="image-caption">
+                <h3>Forest Landscape</h3>
+                <p>Beautiful morning light in the deep forest</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="nature">
+            <div class="image-container">
+                <img src="https://source.unsplash.com/random/600x400?nature,mountains" alt="Mountain view">
+                <div class="overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="image-caption">
+                <h3>Mountain Peaks</h3>
+                <p>Snow-capped mountains at sunrise</p>
+            </div>
+        </div>
+
+        <!-- Architecture -->
+        <div class="gallery-item" data-category="architecture">
+            <div class="image-container">
+                <img src="https://source.unsplash.com/random/600x400?architecture,building" alt="Modern building">
+                <div class="overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="image-caption">
+                <h3>Modern Architecture</h3>
+                <p>Geometric lines of contemporary design</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="architecture">
+            <div class="image-container">
+                <img src="https://source.unsplash.com/random/600x400?architecture,bridge" alt="Bridge design">
+                <div class="overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="image-caption">
+                <h3>Elegant Bridge</h3>
+                <p>Engineering marvel connecting cities</p>
+            </div>
+        </div>
+
+        <!-- Travel -->
+        <div class="gallery-item" data-category="travel">
+            <div class="image-container">
+                <img src="https://source.unsplash.com/random/600x400?travel,city" alt="City skyline">
+                <div class="overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="image-caption">
+                <h3>Urban Landscape</h3>
+                <p>City lights illuminate the night</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="travel">
+            <div class="image-container">
+                <img src="https://source.unsplash.com/random/600x400?travel,beach" alt="Tropical beach">
+                <div class="overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="image-caption">
+                <h3>Tropical Paradise</h3>
+                <p>Crystal clear waters and white sand</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="nature">
+            <div class="image-container">
+                <img src="https://source.unsplash.com/random/600x400?nature,waterfall" alt="Waterfall">
+                <div class="overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="image-caption">
+                <h3>Cascading Falls</h3>
+                <p>Powerful waterfall in pristine wilderness</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="architecture">
+            <div class="image-container">
+                <img src="https://source.unsplash.com/random/600x400?architecture,historic" alt="Historic building">
+                <div class="overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="image-caption">
+                <h3>Historic Marvel</h3>
+                <p>Ancient architecture that stands the test of time</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="travel">
+            <div class="image-container">
+                <img src="https://source.unsplash.com/random/600x400?travel,market" alt="Local market">
+                <div class="overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="image-caption">
+                <h3>Local Market</h3>
+                <p>Vibrant colors and cultural experiences</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightbox modal for image viewing (visual only, no JS functionality) -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="close-lightbox">&times;</span>
+            <img src="" alt="Enlarged photo" id="lightbox-img">
+            <div class="lightbox-caption">
+                <h3></h3>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Photo Gallery - Created for HTML/CSS Mini Project</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

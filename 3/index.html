@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhi's Gallery - Professional Photo Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-camera"></i>
+            <span>Abhi's Gallery</span>
+        </div>
+        <div class="theme-toggle">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+            <div class="toggle-ball"></div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="hero">
+            <h1>Discover Amazing Photography</h1>
+            <p>Browse through a curated collection of beautiful images from around the world</p>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search for images...">
+                <button id="search-button">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="controls">
+            <div class="filter-container">
+                <button class="filter-button active" data-category="all">All</button>
+                <button class="filter-button" data-category="nature">Nature</button>
+                <button class="filter-button" data-category="animals">Animals</button>
+                <button class="filter-button" data-category="food">Food</button>
+                <button class="filter-button" data-category="travel">Travel</button>
+                <button class="filter-button" data-category="architecture">Architecture</button>
+                <button class="filter-button" data-category="technology">Technology</button>
+            </div>
+            <div class="view-options">
+                <button id="grid-view" class="view-button active"><i class="fas fa-th"></i></button>
+                <button id="list-view" class="view-button"><i class="fas fa-list"></i></button>
+            </div>
+        </div>
+
+        <div id="stats" class="stats">Showing <span id="image-count">0</span> images</div>
+
+        <div class="gallery-container grid-view" id="gallery">
+            <!-- Images will be loaded here -->
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Loading beautiful images...</p>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button class="load-more" id="load-more">
+                <span>Load More</span>
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-camera"></i>
+                <span>Abhi's Gallery</span>
+            </div>
+            <p>Powered by Pixabay API | Created for educational purposes</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modal-image" src="" alt="">
+            <div class="modal-info">
+                <h3 id="modal-title"></h3>
+                <p id="modal-user"></p>
+                <div id="modal-stats"></div>
+                <div id="modal-tags" class="tags"></div>
+                <a id="modal-download" href="" target="_blank" class="download-button">Download <i class="fas fa-download"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Photo Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        #search-input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            width: 300px;
+            font-size: 16px;
+        }
+        
+        #search-button {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        #search-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-button {
+            padding: 8px 16px;
+            background-color: #ecf0f1;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .filter-button:hover {
+            background-color: #d6e0f0;
+        }
+        
+        .filter-button.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            background-color: white;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+        
+        .image-info {
+            padding: 15px;
+        }
+        
+        .image-title {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .image-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .tags {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .tag {
+            background-color: #eef2f7;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #5d6d7e;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 20px;
+            color: #7f8c8d;
+        }
+        
+        .load-more {
+            display: block;
+            margin: 30px auto;
+            padding: 12px 30px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .load-more:hover {
+            background-color: #2980b9;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .search-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            #search-input {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 10px;
+                border-radius: 4px;
+            }
+            
+            #search-button {
+                width: 100%;
+                max-width: 300px;
+                border-radius: 4px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Responsive Photo Gallery</h1>
+        <p>Search and explore beautiful images from Pixabay</p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for images...">
+        <button id="search-button">Search</button>
+    </div>
+
+    <div class="filter-container">
+        <button class="filter-button active" data-category="all">All</button>
+        <button class="filter-button" data-category="nature">Nature</button>
+        <button class="filter-button" data-category="animals">Animals</button>
+        <button class="filter-button" data-category="food">Food</button>
+        <button class="filter-button" data-category="travel">Travel</button>
+        <button class="filter-button" data-category="architecture">Architecture</button>
+    </div>
+
+    <div class="gallery-container" id="gallery">
+        <!-- Images will be loaded here -->
+        <div class="loading">Loading images...</div>
+    </div>
+
+    <button class="load-more" id="load-more">Load More</button>
+
+    <script>
+        // Replace with your actual Pixabay API key from project 3
+        const API_KEY = '49047623-d228bc10017b883623efa3be0';
+        
+        // Global variables
+        let currentPage = 1;
+        let currentSearch = '';
+        let currentCategory = 'all';
+        const perPage = 20;
+        
+        // DOM elements
+        const gallery = document.getElementById('gallery');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const loadMoreButton = document.getElementById('load-more');
+        const filterButtons = document.querySelectorAll('.filter-button');
+        
+        // Function to fetch images from Pixabay
+        async function fetchImages(query, category, page = 1) {
+            let apiUrl = `https://pixabay.com/api/?key=${API_KEY}&per_page=${perPage}&page=${page}`;
+            
+            if (query) {
+                apiUrl += `&q=${encodeURIComponent(query)}`;
+            }
+            
+            if (category && category !== 'all') {
+                apiUrl += `&category=${category}`;
+            }
+            
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching images:', error);
+                return { hits: [] };
+            }
+        }
+        
+        // Function to create and display image cards
+        function displayImages(images, clear = false) {
+            if (clear) {
+                gallery.innerHTML = '';
+            }
+            
+            if (images.length === 0) {
+                gallery.innerHTML = '<div class="loading">No images found. Try a different search.</div>';
+                loadMoreButton.style.display = 'none';
+                return;
+            }
+            
+            loadMoreButton.style.display = 'block';
+            
+            images.forEach(image => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                
+                // Create tags array from the image tags
+                const tags = image.tags.split(',').map(tag => tag.trim());
+                const tagElements = tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                
+                galleryItem.innerHTML = `
+                    <div class="image-container">
+                        <img class="gallery-image" src="${image.webformatURL}" alt="${image.tags}">
+                    </div>
+                    <div class="image-info">
+                        <h3 class="image-title">By ${image.user}</h3>
+                        <div class="image-details">
+                            <span>👁️ ${image.views.toLocaleString()}</span>
+                            <span>❤️ ${image.likes.toLocaleString()}</span>
+                        </div>
+                        <div class="tags">
+                            ${tagElements}
+                        </div>
+                    </div>
+                `;
+                
+                gallery.appendChild(galleryItem);
+            });
+        }
+        
+        // Function to handle search
+        async function handleSearch() {
+            const query = searchInput.value.trim();
+            currentSearch = query;
+            currentPage = 1;
+            
+            gallery.innerHTML = '<div class="loading">Searching for images...</div>';
+            
+            const data = await fetchImages(query, currentCategory === 'all' ? '' : currentCategory);
+            displayImages(data.hits, true);
+        }
+        
+        // Function to handle category filter
+        async function handleCategoryFilter(category) {
+            currentCategory = category;
+            currentPage = 1;
+            
+            filterButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.category === category) {
+                    button.classList.add('active');
+                }
+            });
+            
+            gallery.innerHTML = '<div class="loading">Loading images...</div>';
+            
+            const data = await fetchImages(currentSearch, category === 'all' ? '' : category);
+            displayImages(data.hits, true);
+        }
+        
+        // Function to handle load more
+        async function handleLoadMore() {
+            currentPage++;
+            loadMoreButton.textContent = 'Loading...';
+            
+            const data = await fetchImages(
+                currentSearch, 
+                currentCategory === 'all' ? '' : currentCategory, 
+                currentPage
+            );
+            
+            displayImages(data.hits, false);
+            loadMoreButton.textContent = 'Load More';
+            
+            if (data.hits.length < perPage) {
+                loadMoreButton.style.display = 'none';
+            }
+        }
+        
+        // Event listeners
+        searchButton.addEventListener('click', handleSearch);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+        
+        loadMoreButton.addEventListener('click', handleLoadMore);
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                handleCategoryFilter(button.dataset.category);
+            });
+        });
+        
+        // Load initial images
+        async function init() {
+            const data = await fetchImages('', '');
+            displayImages(data.hits, true);
+        }
+        
+        // Initialize the gallery
+        init();
+    </script>
+</body>
+</html>
